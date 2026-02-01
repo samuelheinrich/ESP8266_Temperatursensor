@@ -15,23 +15,6 @@ Just power → connect → log.
 
 ---
 
-## 🎯 Goal
-
-New Cisco C9176 (Wi-Fi 6E/7) access points are installed inside existing Thuba EX enclosures.
-
-Because the new hardware:
-
-- additional 6 GHz radio
-- higher transmit power
-- Multi-Gig uplinks
-- up to 60 W PoE
-
-a higher thermal load is expected.
-
-This project measures the internal enclosure temperature over time to evaluate thermal behaviour under real traffic conditions.
-
----
-
 ## ✨ Features
 
 - standalone Wi-Fi Access Point (SoftAP)
@@ -61,3 +44,53 @@ This project measures the internal enclosure temperature over time to evaluate t
 
 
 
+
+## 🔌 Wiring diagram (breadboard style)
+
+Top view (simplified)
+
+             3V3 rail  =========================================
+             GND rail  =========================================
+
+
+        +--------------------------------------------------+
+        |                   ESP8266 (NodeMCU)              |
+        |                                                  |
+        |   [D1] GPIO5  -------------------- SCL ----------+---- DS3231
+        |   [D2] GPIO4  -------------------- SDA ----------+---- DS3231
+        |   [D4] GPIO2  ----+------------- DATA -----------+---- DS18B20
+        |                   |                              
+        |                  4.7kΩ                            
+        |                   |                              
+        |                  3V3                              
+        |                                                  |
+        |   3V3 -------------------------------------------+---- VCC (RTC + Sensor)
+        |   GND -------------------------------------------+---- GND (RTC + Sensor)
+        +--------------------------------------------------+
+
+
+DS18B20 pinout (flat side facing you)
+
+   +----------------+
+   |  GND DATA VCC  |
+   +----------------+
+
+DATA line needs 4.7kΩ pull-up to 3V3
+
+
+
+## 🔌 Full connection list
+
+ESP8266  →  DS18B20
+-----------------------
+GND      →  GND
+D4       →  DATA
+3V3      →  VCC
+4.7kΩ    →  between DATA and 3V3
+
+ESP8266  →  DS3231
+-----------------------
+3V3      →  VCC
+GND      →  GND
+D2       →  SDA
+D1       →  SCL
