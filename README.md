@@ -82,14 +82,14 @@ DATA line needs 4.7kΩ pull-up to 3V3
 ## 🔌 Full connection list
 
 ESP8266  →  DS18B20
------------------------
+
 GND      →  GND
 D4       →  DATA
 3V3      →  VCC
 4.7kΩ    →  between DATA and 3V3
 
 ESP8266  →  DS3231
------------------------
+
 3V3      →  VCC
 GND      →  GND
 D2       →  SDA
